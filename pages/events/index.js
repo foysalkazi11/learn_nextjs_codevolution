@@ -3,6 +3,8 @@ import {useRouter} from 'next/router';
 import Events from '../../components/events/Events'
 import Link from 'next/link'
 const EventsList = ({events}) => {
+    const user = process.env.NEXT_PUBLIC_ID
+    console.log(user);
     const router = useRouter()
     
     if (router?.isFallback) {

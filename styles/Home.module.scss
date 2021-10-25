@@ -1,0 +1,6 @@
+@import "./custom.scss";
+
+.container{
+    @include container();
+    background-color:$primary;
+}
