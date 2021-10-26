@@ -3,7 +3,7 @@ import {useRouter} from 'next/router';
 import News from '../../components/news/News';
 import Link from 'next/link'
 import { getSession,signIn} from 'next-auth/client'
-
+import {news} from '../../data/fakeData'
 const NewArticleList = (props) => {
     const router = useRouter()
     if (router?.isFallback) {
@@ -46,16 +46,16 @@ export async function getServerSideProps(context) {
             
         }
     }else{
-        const res = await fetch("http://localhost:5000/news")
-    const data = await res.json()
-    if (!data?.length) {
+    //     const res = await fetch("http://localhost:5000/news")
+    // const data = await res.json()
+    if (!news?.length) {
         return{
             notFound:true
         }
     }
     return{
         props:{
-            newsList:data,
+            newsList:news,
             session
         }
     }

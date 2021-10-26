@@ -1,11 +1,12 @@
 import React,{useState,useEffect} from 'react';
 import useSWR from 'swr';
 import {getSession,signIn} from 'next-auth/client'
+import {dashboard} from '../../data/fakeData'
 
 const fetcher = async()=>{
-    const res = await fetch("http://localhost:5000/dashboard")
-    const data = await res.json()
-    return data
+    // const res = await fetch("http://localhost:5000/dashboard")
+    // const data = await res.json()
+    return dashboard
 }
 
  const Dashboard = () => {

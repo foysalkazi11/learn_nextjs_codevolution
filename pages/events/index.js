@@ -2,6 +2,7 @@ import React from 'react'
 import {useRouter} from 'next/router';
 import Events from '../../components/events/Events'
 import Link from 'next/link'
+import {events} from '../../data/fakeData'
 const EventsList = ({events}) => {
     const user = process.env.NEXT_PUBLIC_ID
     console.log(user);
@@ -30,17 +31,17 @@ const EventsList = ({events}) => {
 export async function getServerSideProps(context) {
     const {query} = context
     const {category} = query
-    const qyeryString = category ? `categroy=${category}` : ""
-    const res = await fetch(`http://localhost:5000/events?${qyeryString}`)
-    const data = await res.json()
-    if (!data?.length) {
+    // const qyeryString = category ? `categroy=${category}` : ""
+    // const res = await fetch(`http://localhost:5000/events?${qyeryString}`)
+    // const data = await res.json()
+    if (!events?.length) {
         return{
             notFound:true
         }
     }
     return{
         props:{
-            events:data
+            events:events
         }
     }
 }
