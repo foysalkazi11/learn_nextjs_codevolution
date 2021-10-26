@@ -5,8 +5,28 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    h1{
-        color:#fff;
-
+    .innerContainer{
+        width: 100%;
+        max-width: 1120px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        h1{
+            color: #fff;
+        }
+        a{
+            color: #fff;
+            padding-right: 10px;
+        }
+        .loading{
+            opacity: 0;
+            transition: all 0.2s ease-in-out;
+        }
+        .loaded{
+            opacity: 1;
+            transition: all 0.2s ease-in-out;
+        }
     }
+
+    
 }

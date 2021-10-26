@@ -2,5 +2,6 @@
 .container{
     @include container();
     background-color:$primary;
+    padding: 10px;
     
 }

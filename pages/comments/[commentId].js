@@ -28,9 +28,13 @@ export async function getStaticPaths() {
 
     const res = await fetch("http://localhost:3000/api/comments")
     const data = await res.json()
-    const paths = data?.map(item =>{
-        return {params:{commentId:String(item.id)}}
-    })
+    let paths = []
+    if (data?.length) {
+        paths = data?.map(item =>{
+            return {params:{commentId:String(item.id)}}
+        })
+    }
+    
     return{
         paths,
         fallback:true

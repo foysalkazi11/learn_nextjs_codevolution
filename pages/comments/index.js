@@ -1,20 +1,38 @@
 import React,{useState,useEffect} from 'react';
 import useSWR from 'swr';
 import Link from 'next/link'
-
-
+import { signIn } from 'next-auth/client';
 
 const Comments = () => {
     const [input,setInput] = useState("")
     const [data,setData] = useState([])
+    const [loading,setLoading] = useState(false)
+    const [error,setError] = useState(false)
+
     useEffect(() => {
+        setLoading(true)
+        setError(false)
         const fetcher = async()=>{
-            const res = await fetch("http://localhost:3000/api/comments")
-            const data = await res.json()
-            setData(data)
+            try {
+                const res = await fetch("http://localhost:3000/api/comments")
+                const data = await res.json()
+                console.log(data);
+                if (data.success) {
+                    setData(data.data)
+                }else{
+                    setError(true)
+                }
+            
+                setLoading(false)
+            } catch (error) {
+                console.log(error);
+                setLoading(false)
+            }
+            
         }
         fetcher()
     }, [])
+
     const postComment =async ()=>{
         const res = await fetch("http://localhost:3000/api/comments",{
             method:"POST",
@@ -27,6 +45,7 @@ const Comments = () => {
         setData(data)
         setInput("")
     }
+
     const deleteComment =async (id)=>{
         const res = await fetch(`http://localhost:3000/api/comments/${id}`,{
             method:"DELETE"
@@ -36,6 +55,19 @@ const Comments = () => {
         setData(data)
         
     }
+
+    if (loading) {
+        return <div style={{width:"100",maxWidth:500,margin:"20px auto"}}>
+            <h2>Loading...</h2>
+        </div>
+    }
+    if (error) {
+        return <div style={{width:"100",maxWidth:500,margin:"20px auto"}}>
+            <h2>Unauthenticated user,please login first</h2>
+            <button onClick={signIn}>Login</button>
+        </div>
+    }
+
     return (
         <div style={{width:"100",maxWidth:500,margin:"20px auto"}}>
             <div>
